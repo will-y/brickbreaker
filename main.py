@@ -1,5 +1,6 @@
 import pygame as pg
 import sys
+import paddle
 
 class Main():
     def __init__(self):
@@ -16,6 +17,8 @@ class Main():
         self.clock = pg.time.Clock()
     
     def runGame(self):
+        paddleInstance = paddle.Paddle(self.screen)
+        paddleInstance.drawPaddle(300, 700)
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
         while True:
             self.clock.tick(10)
