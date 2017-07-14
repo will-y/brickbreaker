@@ -18,15 +18,23 @@ class Main():
     
     def runGame(self):
         paddleInstance = paddle.Paddle(self.screen)
-        paddleInstance.drawPaddle(300, 700)
+        paddleInstance.drawPaddle(300)
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
+        
+
         while True:
-            self.clock.tick(10)
+            self.clock.tick(60)
             for event in pg.event.get():
                 if(event.type == pg.QUIT):
                     sys.exit()
-            pg.display.update()
 
+            key = pg.key.get_pressed()
+            if key[pg.K_RIGHT]:
+                paddleInstance.movePaddle("right")
+            if(key[pg.K_LEFT]):
+                paddleInstance.movePaddle("left")
+
+            pg.display.update()
 
 def main():
     mainClass = Main()
