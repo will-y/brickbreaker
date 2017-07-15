@@ -18,10 +18,10 @@ class Main():
         self.clock = pg.time.Clock()
     
     def runGame(self):
-        paddleInstance = paddle.Paddle(self.screen)
+        paddleInstance = paddle.Paddle(self.screen, self.windowWidth, self.windowHeight)
         paddleInstance.drawPaddle(300)
 
-        ballInstance = ball.Ball(self.screen)
+        ballInstance = ball.Ball(self.screen, self.windowWidth, self.windowHeight)
         ballInstance.drawBall((100, 100))
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
         
@@ -38,7 +38,7 @@ class Main():
             if(key[pg.K_LEFT]):
                 paddleInstance.movePaddle("left")
 
-            ballInstance.moveBall(paddleInstance.getPos())
+            ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect())
 
             pg.display.update()
 
