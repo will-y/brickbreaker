@@ -25,7 +25,7 @@ class Main():
         ballInstance = ball.Ball(self.screen, self.windowWidth, self.windowHeight)
         ballInstance.drawBall((350, 690))
 
-        brickInstance = bricks.Bricks(self.screen)
+        brickInstance = bricks.Bricks(self.screen, ballInstance)
         brickInstance.drawBricks()
 
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
@@ -42,18 +42,23 @@ class Main():
             if key[pg.K_RIGHT]:
                 paddleInstance.movePaddle("right")
                 if(ballInstance.stuckToPaddle):
-                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "right")
+                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "right", False)
             if(key[pg.K_LEFT]):
                 paddleInstance.movePaddle("left")
                 if(ballInstance.stuckToPaddle):
-                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "left")
+                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "left", False)
             if(not ballFree):
                 if(key[pg.K_SPACE]):
                     ballInstance.freeBall()
                     ballFree = True
 
+            brickInstance.checkBallHit(ballInstance.getCollider())
+
+            print(brickInstance.getCollide())
+            sys.stdout.flush()
+
             if(not ballInstance.stuckToPaddle):
-                ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "")
+                ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "", brickInstance.checkBallHit(ballInstance.getCollider()))
 
             pg.display.update()
 
