@@ -16,9 +16,7 @@ class Ball():
         self.ballCollider = pg.Rect((self.ballX - self.ballRadius, self.ballY - self.ballRadius), (self.ballRadius * 2, self.ballRadius * 2))
         self.negativeX = False
         self.centerZone = 20
-
-        #Bounds
-        
+        self.stuckToPaddle = True
 
     def drawBall(self, position):
         self.ballX = position[0]
@@ -26,13 +24,19 @@ class Ball():
 
         pg.draw.circle(self.screen, self.ballColor, position, self.ballRadius)
 
-    def moveBall(self, paddlePos, paddleRect):
+    def moveBall(self, paddlePos, paddleRect, direction):
         #Colliding
         ballLeftBound = self.ballX - self.ballRadius
         ballRightBound = self.ballX + self.ballRadius
         ballUpBound = self.ballY - self.ballRadius
         ballDownBound = self.ballY + self.ballRadius
 
+        if(self.stuckToPaddle):
+            if(direction == "left"):
+                self.velocityX = -6
+            elif(direction == "right"):
+                self.velocityX = 6
+            self.velocityY = 0
 
         if(ballRightBound > self.screenWidth - 10):
             self.velocityX = self.velocityX * -1
@@ -58,6 +62,8 @@ class Ball():
 
         pg.draw.circle(self.screen, self.backgroundColor, (self.ballX, self.ballY), self.ballRadius)
 
+        
+
         self.ballX = self.ballX + self.velocityX
         self.ballY = self.ballY + self.velocityY
 
@@ -70,3 +76,8 @@ class Ball():
             boolean = False
         else:
             boolean = True
+
+    def freeBall(self):
+        self.stuckToPaddle = False
+        self.velocityX = 3
+        self.velocityY = 3
