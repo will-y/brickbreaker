@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 import paddle
+import ball
 
 class Main():
     def __init__(self):
@@ -19,6 +20,9 @@ class Main():
     def runGame(self):
         paddleInstance = paddle.Paddle(self.screen)
         paddleInstance.drawPaddle(300)
+
+        ballInstance = ball.Ball(self.screen)
+        ballInstance.drawBall((100, 100))
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
         
 
@@ -33,6 +37,8 @@ class Main():
                 paddleInstance.movePaddle("right")
             if(key[pg.K_LEFT]):
                 paddleInstance.movePaddle("left")
+
+            ballInstance.moveBall(paddleInstance.getPos())
 
             pg.display.update()
 
