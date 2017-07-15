@@ -2,12 +2,13 @@ import pygame as pg
 import sys
 import paddle
 import ball
+import bricks
 
 class Main():
     def __init__(self):
         self.windowHeight = 750
         self.windowWidth = 750
-        self.backgroundColor = pg.Color(140, 166, 209)
+        self.backgroundColor = pg.Color(0, 0, 0)
         self.borderWidth = 10
         self.borderColor = pg.Color(91, 98, 109)
         self.screen = pg.display.set_mode((self.windowWidth, self.windowHeight))
@@ -23,6 +24,9 @@ class Main():
 
         ballInstance = ball.Ball(self.screen, self.windowWidth, self.windowHeight)
         ballInstance.drawBall((350, 690))
+
+        brickInstance = bricks.Bricks(self.screen)
+        brickInstance.drawBricks()
 
         pg.draw.rect(self.screen, self.borderColor, (0, 0, self.windowWidth, self.windowHeight), self.borderWidth)
         

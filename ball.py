@@ -1,6 +1,7 @@
 import pygame as pg
 import paddle
 import random
+import sys
 
 class Ball():
     def __init__(self, screen, width, height):
@@ -13,7 +14,7 @@ class Ball():
         self.velocityY = 3
         self.ballX = 100
         self.ballY = 120
-        self.backgroundColor = pg.Color(140, 166, 209)
+        self.backgroundColor = pg.Color(0, 0, 0)
         self.ballCollider = pg.Rect((self.ballX - self.ballRadius, self.ballY - self.ballRadius), (self.ballRadius * 2, self.ballRadius * 2))
         self.negativeX = False
         self.centerZone = 20
@@ -53,7 +54,7 @@ class Ball():
                 if(not self.negativeX):
                     self.velocityX = self.velocityX * -1
                     self.switchBool(self.negativeX)
-            elif(paddlePos[2] + self.centerZone/2):
+            elif(paddlePos[2] + self.centerZone/2 <= self.ballX <= paddlePos[1]):
                 if(self.negativeX):
                     self.velocityX = self.velocityX * -1
                     self.switchBool(self.negativeX)
@@ -74,15 +75,17 @@ class Ball():
 
     def switchBool(self, boolean):
         if(boolean):
-            boolean = False
+            self.negativeX = False
         else:
-            boolean = True
+            self.negativeX = True
 
     def freeBall(self):
         self.stuckToPaddle = False
         randomInt = random.randint(0, 1)
         if(randomInt == 0):
             self.velocityX = 3
+            self.negativeX = False
         else:
             self.velocityX = -3
+            self.negativeX = True
         self.velocityY = 3

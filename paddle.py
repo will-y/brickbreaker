@@ -5,8 +5,8 @@ class Paddle():
     def __init__(self, screen, width, height):
         self.paddleWidth = 100
         self.paddleHeight = 15
-        self.paddleColor = pg.Color(250, 0, 255)
-        self.backgroundColor = pg.Color(140, 166, 209)
+        self.paddleColor = pg.Color("green")
+        self.backgroundColor = pg.Color(0, 0, 0)
         self.screen = screen
         self.paddleX = 0
         self.screenWidth = width
@@ -14,13 +14,13 @@ class Paddle():
 
     def drawPaddle(self, x):
         self.paddleRect = pg.Rect((x, 700, self.paddleWidth, self.paddleHeight))
-        pg.draw.rect(self.screen, self.backgroundColor, (self.paddleX, 700, self.paddleWidth, self.paddleHeight))
-        pg.draw.rect(self.screen, self.paddleColor, self.paddleRect)
+        pg.draw.rect(self.screen, self.backgroundColor, (self.paddleX - 3, 700 - 3, self.paddleWidth + 6, self.paddleHeight + 6))
+        pg.draw.rect(self.screen, self.paddleColor, self.paddleRect, 5)
 
         self.paddleX = x
 
     def movePaddle(self, direction):
-        if(direction == "left" and self.paddleX > 10):
+        if(direction == "left" and self.paddleX > 12):
             self.drawPaddle(self.paddleX - 6)
         elif(direction == "right" and self.paddleX < self.screenWidth - 10 -self.paddleWidth):
             self.drawPaddle(self.paddleX + 6)
