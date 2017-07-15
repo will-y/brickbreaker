@@ -1,5 +1,6 @@
 import pygame as pg
 import paddle
+import random
 
 class Ball():
     def __init__(self, screen, width, height):
@@ -79,5 +80,9 @@ class Ball():
 
     def freeBall(self):
         self.stuckToPaddle = False
-        self.velocityX = 3
+        randomInt = random.randint(0, 1)
+        if(randomInt == 0):
+            self.velocityX = 3
+        else:
+            self.velocityX = -3
         self.velocityY = 3
