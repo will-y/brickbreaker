@@ -42,11 +42,11 @@ class Main():
             if key[pg.K_RIGHT]:
                 paddleInstance.movePaddle("right")
                 if(ballInstance.stuckToPaddle):
-                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "right", False)
+                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "right")
             if(key[pg.K_LEFT]):
                 paddleInstance.movePaddle("left")
                 if(ballInstance.stuckToPaddle):
-                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "left", False)
+                    ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "left")
             if(not ballFree):
                 if(key[pg.K_SPACE]):
                     ballInstance.freeBall()
@@ -54,11 +54,8 @@ class Main():
 
             brickInstance.checkBallHit(ballInstance.getCollider())
 
-            print(brickInstance.getCollide())
-            sys.stdout.flush()
-
             if(not ballInstance.stuckToPaddle):
-                ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "", brickInstance.checkBallHit(ballInstance.getCollider()))
+                ballInstance.moveBall(paddleInstance.getPos(), paddleInstance.getRect(), "")
 
             pg.display.update()
 

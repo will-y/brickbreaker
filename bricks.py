@@ -33,10 +33,13 @@ class Bricks():
             for j in range(self.bricksPerCol):
                 if(not self.brickArray[i][j] == None):
                     if (self.brickArray[i][j].colliderect(ballCollider)):
+                        if(self.brickArray[i][j].y > self.ball.ballCollider.bottom - 5 or self.brickArray[i][j].bottom < self.ball.ballCollider.top + 5):
+                            self.ball.changeY()
+                        elif(self.brickArray[i][j].right < self.ball.ballCollider.left + 5 or self.brickArray[i][j].left > self.ball.ballCollider.right - 5):
+                            self.ball.changeX()
+
                         self.removeBrick(i, j)
-                        self.ball.changeY()
-                    else:
-                        self.collided = False
+                        return True
 
     def removeBrick(self, i, j):
         pg.draw.rect(self.screen, pg.Color('black'), (self.brickStartingX + (self.brickWidth + self.brickPadding) * i, self.brickStartingY + (self.brickHeight + self.brickPadding) * j, self.brickWidth, self.brickHeight), 3)
@@ -44,6 +47,3 @@ class Bricks():
     
     def getArray(self):
         return self.brickArray
-
-    def getCollide(self):
-        return self.collided
